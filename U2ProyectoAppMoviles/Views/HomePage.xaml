@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="U2ProyectoAppMoviles.Views.HomePage"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             Title="HomePage"
+             BackgroundColor="#F8FAFC">
+
+    <AbsoluteLayout>
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="All">
+
+            <VerticalStackLayout Spacing="0"
+                                 Padding="0,0,0,80">
+
+                <Grid BackgroundColor="#EA580C"
+                      Padding="20,16,20,20"
+                      ColumnDefinitions="*, Auto">
+
+                    <VerticalStackLayout Grid.Column="0" Spacing="2">
+                        <Label Text="Bienvenido,"
+                               FontSize="13"
+                               TextColor="#FFD6B0"/>
+                        <Label Text="{Binding NombreBienvenida}"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                    </VerticalStackLayout>
+
+                    <Button Grid.Column="1"
+                            Text="Salir"
+                            TextColor="White"
+                            BackgroundColor="Transparent"
+                            FontSize="13"
+                            Command="{Binding CerrarSesionCommand}"/>
+                </Grid>
+
+                <Border BackgroundColor="#1D4ED8"
+                        StrokeShape="RoundRectangle 14"
+                        Stroke="Transparent"
+                        Margin="16,16,16,0"
+                        IsVisible="{Binding EsAdmin, Converter={StaticResource InvertBoolConverter}}">
+                    <Grid ColumnDefinitions="*, Auto"
+                          Padding="16,14">
+
+                        <VerticalStackLayout Grid.Column="0"
+                                             Spacing="4">
+                            <Label Text="¿Ves algo irregular?"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Label Text="Haz tu reporte en segundos y ayuda a mejorar tu ciudad."
+                                   FontSize="12"
+                                   TextColor="#93C5FD"
+                                   LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+
+                        <Border Grid.Column="1"
+                                BackgroundColor="#33FFFFFF"
+                                StrokeShape="RoundRectangle 10"
+                                Stroke="Transparent"
+                                HeightRequest="44"
+                                WidthRequest="44"
+                                VerticalOptions="Center">
+                            <Image Source="plus.png"
+                                   HeightRequest="22"
+                                   WidthRequest="22"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Grid ColumnDefinitions="*, Auto"
+                      Padding="16,16,16,8">
+                    <Label Grid.Column="0"
+                           Text="Incidentes recientes"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#1E293B"/>
+                </Grid>
+
+                <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                   IsVisible="{Binding IsLoading}"
+                                   Color="#EA580C"
+                                   Margin="0,16"/>
+
+                <Label Text="{Binding MensajeError}"
+                       TextColor="#DC2626"
+                       FontSize="13"
+                       HorizontalOptions="Center"
+                       Margin="16,0"
+                       IsVisible="{Binding MensajeError, Converter={StaticResource StringToBoolConverter}}"/>
+
+                <CollectionView ItemsSource="{Binding Incidentes}"
+                                Margin="16,0"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="White"
+                                    StrokeShape="RoundRectangle 12"
+                                    Stroke="#E2E8F0"
+                                    StrokeThickness="1"
+                                    Padding="14"
+                                    Margin="0,0,0,10">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.VerDetalleCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="Auto, *, Auto"
+                                      ColumnSpacing="12">
+
+                                    <Border Grid.Column="0"
+                                            BackgroundColor="#FFF7ED"
+                                            StrokeShape="RoundRectangle 10"
+                                            Stroke="Transparent"
+                                            HeightRequest="44"
+                                            WidthRequest="44"
+                                            VerticalOptions="Start">
+                                        <Image Source="advertencia.png"
+                                               HeightRequest="22"
+                                               WidthRequest="22"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Border>
+
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         Spacing="3">
+                                        <Label Text="{Binding Titulo}"
+                                               FontSize="14"
+                                               FontAttributes="Bold"
+                                               TextColor="#1E293B"
+                                               LineBreakMode="TailTruncation"/>
+                                        <Label Text="{Binding Direccion}"
+                                               FontSize="12"
+                                               TextColor="#64748B"
+                                               IsVisible="{Binding Direccion, Converter={StaticResource StringToBoolConverter}}"/>
+                                        <Label Text="{Binding FechaRelativa}"
+                                               FontSize="11"
+                                               TextColor="#94A3B8"/>
+                                        <Border BackgroundColor="#FFF7ED"
+                                                StrokeShape="RoundRectangle 6"
+                                                Stroke="Transparent"
+                                                Padding="8,3"
+                                                HorizontalOptions="Start">
+                                            <Label Text="{Binding Estado}"
+                                                   FontSize="11"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#EA580C"/>
+                                        </Border>
+                                    </VerticalStackLayout>
+
+                                    <Image Grid.Column="2"
+                                           Source="mayorq.png"
+                                           HeightRequest="16"
+                                           WidthRequest="16"
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Border AbsoluteLayout.LayoutBounds="1,1,64,64"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="#EA580C"
+                StrokeShape="RoundRectangle 32"
+                Stroke="Transparent"
+                Margin="0,0,20,20"
+                IsVisible="{Binding EsAdmin, Converter={StaticResource InvertBoolConverter}}">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding IrANuevaDenunciaCommand}"/>
+            </Border.GestureRecognizers>
+            <Image Source="plus.png"
+                   HeightRequest="28"
+                   WidthRequest="28"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+        </Border>
+
+    </AbsoluteLayout>
+</ContentPage>

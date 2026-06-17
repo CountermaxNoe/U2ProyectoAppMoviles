@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="U2ProyectoAppMoviles.Views.NuevaDenunciaPage"
+             Title="NuevaDenunciaPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#FFF7ED">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0" Padding="0,0,0,32">
+
+            <Grid BackgroundColor="#EA580C"
+                  Padding="3,3,3,3"
+                  ColumnDefinitions="Auto,*"
+                  ColumnSpacing="8">
+
+                <Button Grid.Column="0"
+                        Text="x"
+                        TextColor="White"
+                        BackgroundColor="Transparent"
+                        FontSize="24"
+                        WidthRequest="44"
+                        Command="{Binding CancelarCommand}"/>
+
+                <Label Grid.Column="1"
+                       Text="Nueva denuncia"
+                       FontSize="17"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       VerticalOptions="Center"/>
+            </Grid>
+
+            <VerticalStackLayout Padding="16,16,16,0"
+                                 Spacing="16">
+
+                <Label Text="Informacion del incidente"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       TextColor="#1E293B"/>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Categoria *"
+                           FontSize="13"
+                           FontAttributes="Bold"
+                           TextColor="#1E293B"/>
+                    <Border BackgroundColor="White"
+                            StrokeShape="RoundRectangle 10"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            Padding="12,4">
+                        <Picker Title="Selecciona una categoria"
+                                TitleColor="#94A3B8"
+                                TextColor="#1E293B"
+                                FontSize="14"
+                                BackgroundColor="Transparent"
+                                SelectedItem="{Binding Categoria}">
+                            <Picker.Items>
+                                <x:String>Incendio</x:String>
+                                <x:String>Fuga de agua</x:String>
+                                <x:String>Vialidad / Baches</x:String>
+                                <x:String>Alumbrado publico</x:String>
+                                <x:String>Seguridad publica</x:String>
+                                <x:String>Recoleccion de basura</x:String>
+                                <x:String>Areas verdes</x:String>
+                                <x:String>Otro</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Titulo del incidente *"
+                           FontSize="13"
+                           FontAttributes="Bold"
+                           TextColor="#1E293B"/>
+                    <Border BackgroundColor="White"
+                            StrokeShape="RoundRectangle 10"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            Padding="12,0">
+                        <Entry Placeholder="Ej: Bache en calle principal"
+                               PlaceholderColor="#94A3B8"
+                               TextColor="#1E293B"
+                               FontSize="14"
+                               HeightRequest="48"
+                               MaxLength="80"
+                               BackgroundColor="Transparent"
+                               Text="{Binding Titulo}"/>
+                    </Border>
+                    <Label Text="Maximo 80 caracteres"
+                           FontSize="11"
+                           TextColor="#94A3B8"
+                           HorizontalOptions="End"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Descripcion"
+                           FontSize="13"
+                           FontAttributes="Bold"
+                           TextColor="#1E293B"/>
+                    <Border BackgroundColor="White"
+                            StrokeShape="RoundRectangle 10"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            Padding="12,8">
+                        <Editor Placeholder="Describe el problema con el mayor detalle posible..."
+                                PlaceholderColor="#94A3B8"
+                                TextColor="#1E293B"
+                                FontSize="14"
+                                AutoSize="TextChanges"
+                                MinimumHeightRequest="100"
+                                MaxLength="500"
+                                BackgroundColor="Transparent"
+                                Text="{Binding Descripcion}"/>
+                    </Border>
+                    <Label Text="Maximo 500 caracteres"
+                           FontSize="11"
+                           TextColor="#94A3B8"
+                           HorizontalOptions="End"/>
+                </VerticalStackLayout>
+
+                <Label Text="Fotografia del incidente"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       TextColor="#1E293B"
+                       Margin="0,8,0,0"/>
+
+                <Image Source="{Binding RutaFotoLocal}"
+                       HeightRequest="140"
+                       Aspect="AspectFill"
+                       IsVisible="{Binding TieneFoto}"/>
+
+                <Border BackgroundColor="White"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="#CBD5E1"
+                        StrokeThickness="1.5"
+                        StrokeDashArray="6,4"
+                        HeightRequest="140"
+                        IsVisible="{Binding TieneFoto, Converter={StaticResource InvertBoolConverter}}">
+                    <VerticalStackLayout VerticalOptions="Center"
+                                         HorizontalOptions="Center"
+                                         Spacing="8">
+                        <Image Source="camara.png"
+                               HeightRequest="36"
+                               WidthRequest="36"
+                               HorizontalOptions="Center"/>
+                        <Label Text="Agregue una foto"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#64748B"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Grid ColumnDefinitions="*, *"
+                      ColumnSpacing="10">
+                    <Button Grid.Column="0"
+                            Text="Camara"
+                            BackgroundColor="#1D4ED8"
+                            TextColor="White"
+                            FontSize="14"
+                            CornerRadius="10"
+                            HeightRequest="44"
+                            IsEnabled="{Binding IsEnabled}"
+                            Command="{Binding TomarFotoCommand}"/>
+                    <Button Grid.Column="1"
+                            Text="Galeria"
+                            BackgroundColor="#1D4ED8"
+                            TextColor="White"
+                            FontSize="14"
+                            CornerRadius="10"
+                            HeightRequest="44"
+                            IsEnabled="{Binding IsEnabled}"
+                            Command="{Binding SeleccionarFotoCommand}"/>
+                </Grid>
+
+                <Label Text="Ubicacion del incidente"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       TextColor="#1E293B"
+                       Margin="0,8,0,0"/>
+
+                <Border BackgroundColor="#EFF6FF"
+                        StrokeShape="RoundRectangle 10"
+                        Stroke="#BFDBFE"
+                        StrokeThickness="1"
+                        Padding="14">
+                    <Grid ColumnDefinitions="Auto, *, Auto"
+                          ColumnSpacing="10">
+                        <Image Grid.Column="0"
+                               Source="Assets/ubicacionA.png"
+                               HeightRequest="20"
+                               WidthRequest="20"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="1"
+                               Text="Toca para obtener ubicacion"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="#1D4ED8"
+                               VerticalOptions="Center"/>
+
+                        <Button Grid.Column="2"
+                                Text="Obtener"
+                                BackgroundColor="#1D4ED8"
+                                TextColor="White"
+                                FontSize="11"
+                                CornerRadius="8"
+                                HeightRequest="34"
+                                Command="{Binding ObtenerUbicacionCommand}"/>
+                    </Grid>
+                </Border>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Direccion (opcional)"
+                           FontSize="13"
+                           FontAttributes="Bold"
+                           TextColor="#1E293B"/>
+                    <Border BackgroundColor="White"
+                            StrokeShape="RoundRectangle 10"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            Padding="12,0">
+                        <Entry Placeholder="Ej: Av. Juarez 142, Col. Centro"
+                               PlaceholderColor="#94A3B8"
+                               TextColor="#1E293B"
+                               FontSize="14"
+                               HeightRequest="48"
+                               BackgroundColor="Transparent"
+                               Text="{Binding Direccion}"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <Label Text="{Binding MensajeError}"
+                       TextColor="#DC2626"
+                       FontSize="13"
+                       HorizontalOptions="Center"
+                       IsVisible="{Binding MensajeError, Converter={StaticResource StringToBoolConverter}}"/>
+
+                <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                   IsVisible="{Binding IsLoading}"
+                                   Color="#EA580C"
+                                   HorizontalOptions="Center"/>
+
+                <Border
+                    BackgroundColor="#16A34A"
+                    StrokeThickness="0"
+                    Padding="12"
+                    Margin="16,10"
+                    IsVisible="{Binding MostrarSnackbar}"
+                    StrokeShape="RoundRectangle 10">
+
+                    <Label
+                        Text="{Binding TextoSnackbar}"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"/>
+                </Border>
+
+                <Button Text="Enviar reporte"
+                        BackgroundColor="#EA580C"
+                        TextColor="White"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HeightRequest="52"
+                        Margin="0,8,0,0"
+                        IsEnabled="{Binding IsEnabled}"
+                        Command="{Binding EnviarReporteCommand}"/>
+
+                <Button Text="Cancelar"
+                        BackgroundColor="#92400E"
+                        TextColor="White"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        BorderWidth="0"
+                        HeightRequest="40"
+                        Command="{Binding CancelarCommand}"/>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

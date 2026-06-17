@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="U2ProyectoAppMoviles.Views.LoginPage"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             Title="LoginPage"
+             BackgroundColor="#FFF7ED">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *">
+
+            <Grid Grid.Row="0"
+                  BackgroundColor="#EA580C"
+                  Padding="24,48,24,32">
+                <VerticalStackLayout Spacing="10"
+                                     HorizontalOptions="Center">
+
+                    <Border BackgroundColor="#33FFFFFF"
+                            StrokeShape="RoundRectangle 14"
+                            Stroke="Transparent"
+                            HeightRequest="60"
+                            WidthRequest="60"
+                            HorizontalOptions="Center">
+                        <Image Source="error.png"
+                               HeightRequest="34"
+                               WidthRequest="34"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Border>
+
+                    <Label Text="Alerta Ciudadana"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+
+                    <Label Text="Inicia sesion para continuar"
+                           FontSize="13"
+                           TextColor="#FFD6B0"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <VerticalStackLayout Grid.Row="1"
+                                 Padding="24,32,24,24"
+                                 Spacing="16">
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Correo electronico"
+                           FontSize="13"
+                           FontAttributes="Bold"
+                           TextColor="#1E293B"/>
+
+                    <Border BackgroundColor="White"
+                            StrokeShape="RoundRectangle 10"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            Padding="12,0">
+                        <Grid ColumnDefinitions="Auto, *"
+                              ColumnSpacing="10">
+                            <Image Grid.Column="0"
+                                   Source="correoo.png"
+                                   HeightRequest="18"
+                                   WidthRequest="18"
+                                   VerticalOptions="Center"/>
+
+                            <Entry Grid.Column="1"
+                                   Placeholder="usuario@correo.com"
+                                   PlaceholderColor="#94A3B8"
+                                   TextColor="#1E293B"
+                                   FontSize="14"
+                                   Keyboard="Email"
+                                   HeightRequest="48"
+                                   BackgroundColor="Transparent"
+                                   Text="{Binding Correo}"/>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Contrasena"
+                           FontSize="13"
+                           FontAttributes="Bold"
+                           TextColor="#1E293B"/>
+
+                    <Border BackgroundColor="White"
+                            StrokeShape="RoundRectangle 10"
+                            Stroke="#E2E8F0"
+                            StrokeThickness="1"
+                            Padding="12,0">
+                        <Grid ColumnDefinitions="Auto, *"
+                              ColumnSpacing="10">
+                            <Image Grid.Column="0"
+                                   Source="candado.png"
+                                   HeightRequest="18"
+                                   WidthRequest="18"
+                                   VerticalOptions="Center"/>
+
+                            <Entry Grid.Column="1"
+                                   Placeholder="••••••••"
+                                   PlaceholderColor="#94A3B8"
+                                   TextColor="#1E293B"
+                                   FontSize="14"
+                                   IsPassword="True"
+                                   HeightRequest="48"
+                                   BackgroundColor="Transparent"
+                                   Text="{Binding Password}"/>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <Button Text="Iniciar sesion"
+                        BackgroundColor="#EA580C"
+                        TextColor="White"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50"
+                        Margin="0,8,0,0"
+                        IsEnabled="{Binding IsEnabled}"
+                        Command="{Binding LoginCommand}"/>
+
+                <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                   IsVisible="{Binding IsLoading}"
+                                   Color="#EA580C"
+                                   HorizontalOptions="Center"/>
+
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

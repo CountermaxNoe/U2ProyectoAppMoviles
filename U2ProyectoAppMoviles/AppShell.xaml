@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="U2ProyectoAppMoviles.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   
+    xmlns:views="clr-namespace:U2ProyectoAppMoviles.Views">
+    
+    <ShellContent
+        Title="Splash"
+        Route="splash"
+        ContentTemplate="{DataTemplate views:SplashPage}" />
+
+    <ShellContent
+        Title="Login"
+        Route="login"
+        ContentTemplate="{DataTemplate views:LoginPage}" />
+
+    <ShellContent
+        Title="Home"
+        Route="home"
+        ContentTemplate="{DataTemplate views:HomePage}" />
+
+</Shell>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="U2ProyectoAppMoviles.Views.DetalleIncidentePage"
+             Title="DetalleIncidentePage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#FFF7ED">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <Grid BackgroundColor="Black"
+                  Padding="3,3,3,3"
+                  ColumnDefinitions="Auto,*"
+                  ColumnSpacing="8">
+
+                <Button Grid.Column="0"
+                        Text="←"
+                        TextColor="White"
+                        BackgroundColor="Transparent"
+                        FontSize="24"
+                        WidthRequest="44"
+                        Command="{Binding RegresarCommand}"/>
+
+                <Label Grid.Column="1"
+                       Text="Detalles del incidente"
+                       FontSize="17"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       VerticalOptions="Center"/>
+            </Grid>
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}"
+                               Color="#EA580C"
+                               Margin="0,32"/>
+
+            <Label Text="{Binding MensajeError}"
+                   TextColor="#DC2626"
+                   FontSize="13"
+                   HorizontalOptions="Center"
+                   Margin="16,16"
+                   IsVisible="{Binding MensajeError, Converter={StaticResource StringToBoolConverter}}"/>
+
+            <VerticalStackLayout IsVisible="{Binding IsLoading, Converter={StaticResource InvertBoolConverter}}">
+
+                <Grid HeightRequest="220">
+                    <Image Source="{Binding Incidente.PrimeraFoto}"
+                           Aspect="AspectFill"
+                           IsVisible="{Binding Incidente.TieneFoto}"/>
+
+                    <Image Source="Assets/placeholderfoto.jpg"
+                           Aspect="AspectFill"
+                           IsVisible="{Binding Incidente.TieneFoto, Converter={StaticResource InvertBoolConverter}}"/>
+
+                    <Border BackgroundColor="#EA580C"
+                            StrokeShape="RoundRectangle 8"
+                            Stroke="Transparent"
+                            Padding="10,5"
+                            HorizontalOptions="Start"
+                            VerticalOptions="End"
+                            Margin="16,0,0,16">
+                        <Label Text="{Binding Incidente.Categoria}"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                    </Border>
+                </Grid>
+
+                <VerticalStackLayout Padding="16,16,16,0"
+                                     Spacing="16">
+
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Border Grid.Column="0"
+                                BackgroundColor="#FFF7ED"
+                                StrokeShape="RoundRectangle 8"
+                                Stroke="Transparent"
+                                Padding="10,5"
+                                HorizontalOptions="Start">
+                            <Label Text="{Binding Incidente.Estado}"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#EA580C"/>
+                        </Border>
+                        <Label Grid.Column="1"
+                               Text="{Binding Incidente.FechaRelativa}"
+                               FontSize="12"
+                               TextColor="#94A3B8"
+                               VerticalOptions="Center"/>
+                    </Grid>
+
+                    <Label Text="{Binding Incidente.Titulo}"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#1E293B"
+                           LineBreakMode="WordWrap"/>
+
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="#F1F5F9"/>
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Grid ColumnDefinitions="Auto, *"
+                              ColumnSpacing="12">
+                            <Border Grid.Column="0"
+                                    BackgroundColor="#F0FDF4"
+                                    StrokeShape="RoundRectangle 8"
+                                    Stroke="Transparent"
+                                    HeightRequest="36"
+                                    WidthRequest="36">
+                                <Image Source="ubicacion.png"
+                                       HeightRequest="18"
+                                       WidthRequest="18"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1"
+                                                 VerticalOptions="Center"
+                                                 Spacing="2">
+                                <Label Text="Ubicacion"
+                                       FontSize="11"
+                                       TextColor="#94A3B8"/>
+                                <Label Text="{Binding Incidente.Direccion}"
+                                       FontSize="13"
+                                       TextColor="#1E293B"
+                                       LineBreakMode="WordWrap"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="Auto, *"
+                              ColumnSpacing="12">
+                            <Border Grid.Column="0"
+                                    BackgroundColor="#EFF6FF"
+                                    StrokeShape="RoundRectangle 8"
+                                    Stroke="Transparent"
+                                    HeightRequest="36"
+                                    WidthRequest="36">
+                                <Image Source="iconousuario.png"
+                                       HeightRequest="18"
+                                       WidthRequest="18"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1"
+                                                 VerticalOptions="Center"
+                                                 Spacing="2">
+                                <Label Text="Reportado por"
+                                       FontSize="11"
+                                       TextColor="#94A3B8"/>
+                                <Label Text="{Binding Incidente.NombreUsuario}"
+                                       FontSize="13"
+                                       TextColor="#1E293B"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="Auto, *"
+                              ColumnSpacing="12">
+                            <Border Grid.Column="0"
+                                    BackgroundColor="#F0FDF4"
+                                    StrokeShape="RoundRectangle 8"
+                                    Stroke="Transparent"
+                                    HeightRequest="36"
+                                    WidthRequest="36">
+                                <Image Source="calendario.png"
+                                       HeightRequest="18"
+                                       WidthRequest="18"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1"
+                                                 VerticalOptions="Center"
+                                                 Spacing="2">
+                                <Label Text="Fecha de reporte"
+                                       FontSize="11"
+                                       TextColor="#94A3B8"/>
+                                <Label Text="{Binding Incidente.FechaReporte, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                       FontSize="13"
+                                       TextColor="#1E293B"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="#F1F5F9"/>
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Descripcion"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="#1E293B"/>
+                        <Label Text="{Binding Incidente.Descripcion}"
+                               FontSize="14"
+                               TextColor="#64748B"
+                               LineBreakMode="WordWrap"
+                               LineHeight="1.5"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Ubicacion en mapa"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="#1E293B"/>
+                        <Border BackgroundColor="#E2E8F0"
+                                StrokeShape="RoundRectangle 12"
+                                Stroke="#CBD5E1"
+                                HeightRequest="150">
+                            <VerticalStackLayout VerticalOptions="Center"
+                                                 HorizontalOptions="Center"
+                                                 Spacing="8">
+                                <Image Source="ubicaciones.png"
+                                       HeightRequest="36"
+                                       WidthRequest="36"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="Toca para ver en mapa"
+                                       FontSize="13"
+                                       TextColor="#94A3B8"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Button Text="Ver en mapa completo"
+                            BackgroundColor="#1D4ED8"
+                            TextColor="White"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            HeightRequest="50"
+                            Command="{Binding AbrirMapaCommand}"/>
+
+                    <Button Text="Marcar como Atendido"
+                            BackgroundColor="#16A34A"
+                            TextColor="White"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            HeightRequest="50"
+                            Margin="0,8,0,32"
+                            IsVisible="{Binding PuedeAtender}"
+                            Command="{Binding MarcarAtendidoCommand}"/>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
